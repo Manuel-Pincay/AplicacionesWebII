@@ -13,3 +13,15 @@ const persona = {
 }
 
 console.log(persona.getnombrevompleto())
+
+
+function mostrarDatos({nombre, apellido, geolocalizacion:{lat,lng}})
+{
+    console.log(nombre)
+    console.log(apellido)
+    console.log(lat)
+    console.log(lng)
+    
+}
+
+mostrarDatos(persona)
