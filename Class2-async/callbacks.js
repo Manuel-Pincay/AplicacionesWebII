@@ -44,8 +44,30 @@ function buscarplatoid(id,Callback)
        error.message= `plato no encontrado con id ${id}`;
         return Callback(error);
    }
-    Callback(null, plato);
+    return Callback(null, plato);
 }
+
+
+function buscarrestauranteid(id, Callback)
+{
+    const restaurante = restaurante.find((restaurante)=>restaurante.id)
+    if(!restaurante){
+        const error = new Error();
+        error.message=`Restaurante con id ${id} no ha sido encontrado`
+        return Callback(error)
+    }
+    return Callback(null, restaurante)
+}
+
+
+/* buscarrestauranteid(1, (err,restaurante)=>{
+    if(err)
+    {
+        console.log(err.message);
+        return;
+    }
+    console.log(restaurante);
+})
 
 
 buscarplatoid(1,(err,plato)=>
@@ -55,34 +77,20 @@ buscarplatoid(1,(err,plato)=>
     }
     console.log(null,plato);
 })
-
-buscarplatoid(33,(err,plato)=>{
+ */
+buscarplatoid(3,(err,plato)=>{
     if(err)
     {
     console.log(err.message);
     return;
     }
-    buscarrestauranteid(plato.idrest, (err,restaurante=>{
+    buscarrestauranteid(plato.idrest, (err,restaurante)=>{
         if(err){
             console.log(err.message);
             return;
         }
-    }))
-    console.log(plato);
-    console.log(restaurante );
-})
-
-
-function buscarrestauranteid(id, Callback)
-{
-    const restaurante = restaurante.find((restaurante)=>restaurante.id)
-}
-
-buscarrestauranteid(1, (err,restaurante)=>{
-    if(err)
-    {
-        console.log(err.message);
-        return;
-    }
-    console.log(restaurante);
+        plato.restaurante=restaurante;
+        delete plato.idrestaurante;
+        console.log(plato);
+    })
 })
