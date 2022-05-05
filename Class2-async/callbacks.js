@@ -24,7 +24,7 @@ const restaurante=[
     {id:2,
         nombre: Lo-nuestro,
         },
-    {id:1,
+    {id:3,
         nombre: casita,
     },
 
@@ -94,3 +94,15 @@ buscarplatoid(3,(err,plato)=>{
         console.log(plato);
     })
 })
+
+
+Function buscarplatoporid (id)
+{
+    return new Promise((resolve, reject)=>{
+        const plato = platos.find((plato)=> plato.id=== id);
+        if (!plato)
+        {
+            const 
+        }
+    })
+}
