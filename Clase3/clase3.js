@@ -73,3 +73,4 @@ const resultado = await Usuario.find()
 console.log(resultado[3].idgrupo);
 }) ();
 
+
