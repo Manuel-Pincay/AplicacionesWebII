@@ -71,6 +71,7 @@ const resultado = await Usuario.find()
 .populate("permisos.permitido");
 
 console.log(resultado[3].idgrupo);
+
 }) ();
 
 
