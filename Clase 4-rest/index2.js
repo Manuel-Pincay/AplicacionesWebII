@@ -32,13 +32,48 @@ ruta.post('/',(req,res)=>{
 
 
 })
-
 /* creacion de rutas */
-ruta.get('/')
-ruta.get('/:id')
-ruta.post('/')
-ruta.put('/')
-ruta.delete('/')
+ruta.get('/:id', (req,res)=>{
+    const {codigo} = req.params;
+    comida = comidas.filter(c=> c.codigo ===codigo);
+    if(comida.length>0)
+    {
+        res.status(200).send({
+            message:`Dato encontrado`,
+            res:Comida[0]
+        })
+    }
+    else{
+        res.status(400).send({
+            message: `Comida con ese codigo no existe`
+        })
+    }
+})
+ruta.put('/',(req,res)=>{
+    const {codigo,descripcion,tipo}= req.body;
+    if (comidas.filter(c=> c.codigo=== codigo).length==0)
+    {
+        return res.status(400).send({
+            message:`No se encuentra lo que se desea modificar`
+        })
+    }
+    let comida = comidas.filter(c=> c.codigo===codigo)[0];
+    comida.descripcion = descripcion;
+    comida.tipo = tipo;
+    res.status(200).send({
+        message:`Dato modificado con exito`,
+        res: comida
+    })
+
+})
+ruta.delete('/:codigo',(req,res)=>{
+    const{codigo} = req.params;
+    comidas = comidas.filter(c=>codigo !== codigo)
+    res.status(200).send(
+       { message: `Eliminado correctamente`
+    }
+    )
+})
 
 app.use('/comidas', ruta);
 app.listen(puerto, ()=>{
