@@ -3,6 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 
+
 const app = express();
 const puerto = 5000;
 /* es una funcion que permite inyectar un midelboard */
