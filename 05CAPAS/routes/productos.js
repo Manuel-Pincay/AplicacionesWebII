@@ -11,7 +11,7 @@ const {ObtenerProductos,
 
 const router = Router();
 
-const {ValidarCampos }=require('../middlewares');
+const {validarCampos }=require('../middlewares');
 
 
 
