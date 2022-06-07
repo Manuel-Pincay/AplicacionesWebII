@@ -33,7 +33,7 @@ class Server {
     }
     listen(){
         this._express.listen(thi.port,()=>{
-            console.log(`Servidor corriendo en puerto ${this.port}`)
+            console.log(`Servidor corriendo en puerto   `)
         })
     }
 
