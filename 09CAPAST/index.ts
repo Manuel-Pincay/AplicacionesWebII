@@ -3,7 +3,20 @@ npm init --y
 npm i express
 tsc install
 ts */
-import express from 'express'
+
+import {config} from 'dotenv'
+config ()
+
+import { Server } from './server'
+
+const server = new Server
+
+server.listen()
+
+
+
+
+/* import express from 'express'
 
 const app = express();
 const port = 3000;
@@ -15,4 +28,4 @@ app.get('/',(req,res)=>{
 
 app.listen(port, ()=>{
     console.log(`prueba funcionando`);
-})
+}) */

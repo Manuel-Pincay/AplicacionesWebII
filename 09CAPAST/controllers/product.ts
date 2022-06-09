@@ -9,7 +9,7 @@ const obtenerProductos = async (req:Request, res:Response) => {
         Product.countDocuments(query),
         Product.find(query)
         .skip(Number(desde))
-        
+
         .limit(Number(limite))
     ])
 
@@ -33,7 +33,7 @@ const crearProducto = async (req:Request, res:Response) => {
     }
     const producto = new Product(body);
     const productoNuevo = await producto.save();
-    return res.status(200).json(productoNuevo);
+    return res.status(201).json(productoNuevo);
 }
 
 export {
