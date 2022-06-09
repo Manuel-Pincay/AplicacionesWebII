@@ -9,6 +9,7 @@ const obtenerProductos = async (req:Request, res:Response) => {
         Product.countDocuments(query),
         Product.find(query)
         .skip(Number(desde))
+        
         .limit(Number(limite))
     ])
 
