@@ -1,28 +1,27 @@
-const express = require('express')
+const express =require('express')
 const app = express()
 
-const respuesta = {
+const respuesta ={
     data:[],
-    arquitectura: 'Monolitico',
-    descripcion: 'Acceso a todas las rutas en un solo cualquier cosa'
-
+    arquitectura:'Monolitico',
+    descripcion :'Acceso a todas las rutas en un solo archivo de cualquier cosa'
 }
-app.use((req, res,next) => {
+
+app.use((req,res,next)=>{
     respuesta.data=[]
-    next()
+    next
 })
 
-app.get('/api/v1/users',(req,res) =>{
-    respuesta.data.push("Admin","Super Admin")
-    return res.send(respuesta.data);
+app.get('/api/v1/usuarios', (req,res)=>{
+    respuesta.data.push("Administrador", "Support", "meat", "jungla")
+    return res.send( respuesta);
 })
-app.get('/api/v1/productos',(req,res) =>{
-    respuesta.data.push("Pizza","hamburguesa","papas fritas")
-    return res.send(respuesta.data);
+app.get('/api/v1/productos', (req,res)=>{
+    respuesta.data.push("`pizza", "hamburguesa", "papas fritas", "encebollado")
+    return res.send( respuesta);
 })
-app.get('/api/v1/clientes',(req,res) =>{
-    respuesta.data.push("Consumindor final","Diosito R","Branley Y")
-    return res.send(respuesta.data);
+app.get('/api/v1/clientes', (req,res)=>{
+    respuesta.data.push("Consumidor final", "Ruben S", "Manuelito P")
+    return res.send( respuesta);
 })
-
-module.exports = app;
+module.exports=app

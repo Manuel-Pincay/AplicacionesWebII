@@ -9,9 +9,10 @@ respuesta={
 
 app.get('/api/v2/productos', (req, res)=>{
     respuesta.data=[]
-    respuesta.data.push("Consumidor final", "Juan Carlos", "Manu Manito")
-    console.log(`Microservicio de clientes`);
+    respuesta.data.push("pizza", "hamburguesa", "papas fritas", "encebollado")
+    console.log(`Microservicio de Productos`);
     return res.send(respuesta)
+
     })
 
 module.exports= app

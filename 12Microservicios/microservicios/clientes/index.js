@@ -1,6 +1,5 @@
-const servidor = require('./SRC/app')
+const servidor = require('./src/app')
 
-servidor.listen(process.env.PORT || 3000, () => {
-    console.log(`Servidor listening on port ${process.env.PORT || 3000}`);
-
+servidor.listen(process.env.PORT, ()=>{
+    console.log(`Microservicio de cliente corriendo en puerto ${process.env.PORT}`)
 })
