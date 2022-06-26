@@ -9,7 +9,7 @@ const respuesta ={
 
 app.use((req,res,next)=>{
     respuesta.data=[]
-    next
+    next()
 })
 
 app.get('/api/v1/usuarios', (req,res)=>{
