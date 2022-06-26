@@ -7,7 +7,7 @@ const { obtenerCarro, obtenerCarros, crearCarro, actualizarCarro, borrarCarro} =
 const router = Router();
 
 router.get('/' , obtenerCarros)
-router.post('/:CARRO_PLACA', obtenerCarro)
+router.get('/:CARRO_PLACA', obtenerCarro)
 router.post('/', [check('CARRO_PLACA', 'La placa es obligatoria').not().isEmpty()], crearCarro)
 router.put('/:CARRO_PLACA', actualizarCarro)
 router.delete('/:CARRO_PLACA', borrarCarro)
