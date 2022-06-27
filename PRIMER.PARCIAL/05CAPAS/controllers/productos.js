@@ -3,7 +3,6 @@ const { response } = require('express');
 const { Producto } = require('../models');
 
 
-const app = express()
 /* Como vamos a usar base de datos mongose(NOSQL) tiene que ser async */
 const ObtenerProductos = async (req,res = response)=>{
     const {limite=10,desde=0}=req.query;
