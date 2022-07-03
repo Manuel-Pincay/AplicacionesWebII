@@ -14,7 +14,7 @@ class Server {
 
         }
         this.conectarBD();
-        this.middleawares();
+        /* this.middleawares(); */
         this.routes();
         this.router.use('/v1/sextoa',this.app);
         this._express= express().use(this.router);
@@ -23,10 +23,10 @@ class Server {
     async conectarBD(){
             await dbConnection();
         }
-    middleawares(){
+    /* middleawares(){
         this.app.use(cors());
         this.app.use(express.json());
-    }
+    } */
     routes(){
         this.app.use(this.paths.productos,
             require('./routes/productos'))

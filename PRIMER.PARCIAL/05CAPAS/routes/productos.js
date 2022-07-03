@@ -12,7 +12,7 @@ const {ObtenerProductos,
 
 const router = Router();
 
-const {ValidarCampos }=require('../middlewares');
+//const {ValidarCampos }=require('../middlewares/index/todasLasFunciones');
 
 
 
@@ -21,7 +21,7 @@ router.get('/', ObtenerProductos)
 router.get('/:id',[check('id', 'El id no es valido').isMongoId()], Obtenerproducto)
 
 /* Check valida (en este caso si esta vacio ese campo) */
-router.post('/', [check('Nombre es obligatorio').not().isEmpty()],ValidarCampos, Crearproducto)
+router.post('/', [check('Nombre es obligatorio').not().isEmpty()],/* ValidarCampos,  */Crearproducto)
 
 /* Check verifica si el ID es valido o si esat vacio */
 router.put('/:id',[check('id', 'El id no es valido').isMongoId()], Actualizarproducto)

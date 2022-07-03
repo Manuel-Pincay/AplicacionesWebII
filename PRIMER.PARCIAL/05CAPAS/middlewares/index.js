@@ -1,8 +1,6 @@
-const todasLasFunciones = require('../middlewares/validarcampos')   
-
-
+/* const todasLasFunciones = require('../middlewares/validarcampos')   
 
 module.exports = {
     ...todasLasFunciones
-    
-}
+
+} */
