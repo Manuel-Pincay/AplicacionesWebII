@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  carros:
+    build: ./carros
+    depends_on:
+      - mongo
+    environment:
+
+      - MONGODB_CNN4=mongodb://mongo:27017/microservicescarros
+  mongo:
+    image: mongo
+    command: mongod --quiet --logpath /dev/null
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+
+      - carros
