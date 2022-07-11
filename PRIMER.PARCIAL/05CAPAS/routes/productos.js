@@ -3,20 +3,20 @@ const {check}= require('express-validator');
 
 /* cheack = Middleware  */
 
-const {ObtenerProductos,
+const {obtenerProductos,
     Obtenerproducto,
     Crearproducto,
     Actualizarproducto,
     Borrarproducto
     } = require('../controllers').Producto;
 
+
+
+/* const { validarCampos  } = require('../middlewares');
+ */
 const router = Router();
 
-//const {ValidarCampos }=require('../middlewares/index/todasLasFunciones');
-
-
-
-router.get('/', ObtenerProductos)
+router.get('/', obtenerProductos)
 /* Check verifica si el ID es valido o si esat vacio */
 router.get('/:id',[check('id', 'El id no es valido').isMongoId()], Obtenerproducto)
 
@@ -29,3 +29,4 @@ router.put('/:id',[check('id', 'El id no es valido').isMongoId()], Actualizarpro
 /* Check verifica si el ID es valido o si esat vacio */
 router.delete('/:id',[check('id', 'El id no es valido').isMongoId()],Borrarproducto)
 
+module.exports = router;

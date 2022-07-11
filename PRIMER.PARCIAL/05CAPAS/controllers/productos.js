@@ -4,20 +4,17 @@ const { Producto } = require('../models');
 
 
 /* Como vamos a usar base de datos mongose(NOSQL) tiene que ser async */
-const ObtenerProductos = async (req,res = response)=>{
-    const {limite=10,desde=0}=req.query;
-    const query = {estado:true};
-
-    const [total,productos] = await Promise.all([
+const obtenerProductos = async  (req,res = response )=>{
+    const { limite=10, desde=0 } =  req.query;
+    const query = { estado:true };
+    const [ total, productos ] = await  Promise.all([
         Producto.countDocuments(query),
         Producto.find(query)
-    ])
-
-    res.json({
-        total,
-        productos,
-    })
-
+   ])
+   res.json({
+       total,
+       productos
+   })
 }
 const Obtenerproducto = async(req,res)=>{
     const {id} = req.params;
@@ -55,7 +52,7 @@ const Borrarproducto = async (req,res)=>{
 }
 
 module.exports ={
-    ObtenerProductos,
+    obtenerProductos,
     Obtenerproducto,
     Crearproducto,
     Actualizarproducto,

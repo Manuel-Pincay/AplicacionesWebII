@@ -31,8 +31,10 @@ const obtenerProductos = (req, res) => __awaiter(void 0, void 0, void 0, functio
             .skip(Number(desde))
             .limit(Number(limite))
     ]);
-    res.json({ total,
-        productos });
+    res.json({
+        total,
+        productos
+    });
 });
 exports.obtenerProductos = obtenerProductos;
 const obtenerProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

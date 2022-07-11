@@ -1,49 +1,46 @@
-import express, {Router, Express} from 'express';
+import express, {Router, Express} from 'express'
 import cors from 'cors';
 
 import {dbConnection} from './databases/config'
-import {router as producto} from './routes/products'
+import {router as productos} from './routes/productos'
 
 class Server
 {
 
     app: Router;
     router: Router;
-    port:Number;
-    paths: {[key:string]:string}
+    port: Number;
+    paths: { [key:string]:string };
     private _express: Express;
 
     constructor(){
         this.app = Router();
         this.router = Router();
-        this.port = Number(process.env["PORT"]); 
-        this.paths = {
-
+        this.port= Number( process.env["PORT"])
+        this.paths= {
             productos:'/api/productos',
-            clientes:'/api/clientes'
+            clientes:'/api/clientes',
         }
-        this.conectarDB();
-        this.middleware();
+        this.conectarDb();
+        this.middlewares();
         this.routes();
-
-        this.router.use('v1/sextoa', this.app);
-        this._express = express().use(this.router) ;
-
+        this.router.use('/v1/sextoa', this.app);
+        this._express=  express().use(this.router);
     }
-    private async conectarDB(){
+    private async conectarDb(){
         await dbConnection();
     }
-    private middleware (){
+    private middlewares(){
         this.app.use(cors());
-        this.app.use(express.json());
+        this.app.use(express.json())
     }
     private routes(){
-        this.app.use(this.paths.productos, producto)
+        this.app.use(this.paths.productos , productos )
     }
-    
     listen(){
-        this._express.listen(this.port,() => {
-            console.log(`Server ejecuted on http://localhost:${this.port}/v1/sextoa/api/productos`);
+        this._express.listen(this.port, ()=>{
+            console.log(`Servidor ejecutando 
+            en http://localhost:${this.port}/v1/sextoa/api/productos`);
         })
     }
 

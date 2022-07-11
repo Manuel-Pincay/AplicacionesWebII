@@ -2,14 +2,14 @@
 npm init --y
 npm i express
 tsc install
-ts */
+tsc -w */
 
 import {config} from 'dotenv'
 config ()
 
 import { Server } from './server'
 
-const server = new Server
+const server = new Server();
 
 server.listen()
 

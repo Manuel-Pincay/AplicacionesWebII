@@ -32,8 +32,8 @@ class Server {
             require('./routes/productos'))
     }
     listen(){
-        this._express.listen(thi.port,()=>{
-            console.log(`Servidor corriendo en puerto   `)
+        this._express.listen(this.port,()=>{
+            console.log(`Server listening on http://localhost:${this.port}/v1/sextoa/api/productos`);
         })
     }
 

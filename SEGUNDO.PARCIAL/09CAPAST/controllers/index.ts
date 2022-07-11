@@ -1,5 +1,5 @@
 import * as Producto from './product'
 
-export{ 
+export {
     Producto
 }

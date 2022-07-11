@@ -39,7 +39,7 @@ exports.Server = void 0;
 const express_1 = __importStar(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const config_1 = require("./databases/config");
-const products_1 = require("./routes/products");
+const productos_1 = require("./routes/productos");
 class Server {
     constructor() {
         this.app = (0, express_1.Router)();
@@ -47,29 +47,30 @@ class Server {
         this.port = Number(process.env["PORT"]);
         this.paths = {
             productos: '/api/productos',
-            clientes: '/api/clientes'
+            clientes: '/api/clientes',
         };
-        this.conectarDB();
-        this.middleware();
+        this.conectarDb();
+        this.middlewares();
         this.routes();
-        this.router.use('v1/sextoa', this.app);
+        this.router.use('/v1/sextoa', this.app);
         this._express = (0, express_1.default)().use(this.router);
     }
-    conectarDB() {
+    conectarDb() {
         return __awaiter(this, void 0, void 0, function* () {
             yield (0, config_1.dbConnection)();
         });
     }
-    middleware() {
+    middlewares() {
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
     }
     routes() {
-        this.app.use(this.paths.productos, products_1.router);
+        this.app.use(this.paths.productos, productos_1.router);
     }
     listen() {
         this._express.listen(this.port, () => {
-            console.log(`Server ejecuted on http://localhost:${this.port}/v1/sextoa/api/productos`);
+            console.log(`Servidor ejecutando 
+            en http://localhost:${this.port}/v1/sextoa/api/productos`);
         });
     }
 }
