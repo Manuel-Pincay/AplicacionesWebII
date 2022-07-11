@@ -1,7 +1,10 @@
 # Express
 
 -   npm i express
+# TypeScript
 
+- tsc init --config
+- tsc -w
 # Mongoose
 -   npm i mongoose
 -   npm init -y      -- Usar Mongoose
