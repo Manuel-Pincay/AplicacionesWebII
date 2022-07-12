@@ -16,15 +16,23 @@ docker-compose up
 
  [docker run --name BaseMongo -p 27017:27017 -d mongo]
 
- # Docker - Mongoose
+## Docker - Mongoose
+
 > show dbs
-admin                   0.000GB
-config                  0.000GB
-local                   0.000GB
-microservicesclientest  0.000GB
+~~~              
+admin                               0.000GB
+config                              0.000GB
+local                               0.000GB
+microservicesclientest              0.000GB
+~~~
+   
+
 > use microservicesclientest
+
 switched to db microservicesclientest
+
 > show collections
+~~~
 clientes
 > db.clientes.find().pretty();
 {
@@ -37,12 +45,12 @@ clientes
         "__v" : 0
 }
 >
-
+~~~
 # CSR
 
 ### Installation Vite Vanilla 
-
 - npm create vite@latest
+~~~
         Need to install the following packages:
         create-vite@latest
         Ok to proceed? (y) y
@@ -57,8 +65,9 @@ clientes
 
     cd ClienteWeb
     npm install
-    npm run dev        
+    npm run dev    
+~~~    
 
 - Install Axios
 
-    npm i axios
+        > npm i axios
