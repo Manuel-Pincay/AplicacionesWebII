@@ -80,7 +80,7 @@ consultar.addEventListener('click', async ()=>{
     {
       const row = tabla.insertRow();
       const celda = row.insertCell();
-      celda.innerHTML = `<button class="boton" value='${carro._id}'>${carro.CARRO_PLACA} </button>`;
+      celda.innerHTML = `<button class="boton" value='${carro.CARRO_PLACA}'>${carro.CARRO_PLACA} </button>`;
 
       const celda2= row.insertCell();
       celda2.innerHTML=`${carro.CARRO_AÑO}`
@@ -96,6 +96,7 @@ consultar.addEventListener('click', async ()=>{
     {
       const {data} = await httpAxios.get<ICarros>(`carros/${(ele as HTMLButtonElement).value}`)
       console.log(data)
+      
       carro_placa.value = data.CARRO_PLACA;
       carro_modelo.value = data.CARRO_MODELO;
       carro_aÑo.value = data.CARRO_AÑO.toString();
