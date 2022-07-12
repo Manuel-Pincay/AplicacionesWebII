@@ -1,6 +1,6 @@
 export interface IResCarros {
     total:     number;
-    icarros: ICarros[];
+    carros: ICarros[];
 }
 
 export interface ICarros{

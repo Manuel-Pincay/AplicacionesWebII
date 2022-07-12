@@ -23,9 +23,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.borrarCarro = exports.actualizarCarro = exports.crearCarro = exports.obtenerCarros = exports.obtenerCarro = void 0;
 const Models_1 = require("../Models");
 const obtenerCarros = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { limite = 10, desde = 0 } = req.query;
-    const query = { estado: true };
-    const [total, datos] = yield Promise.all([
+    const { limite = '10', desde = '0' } = req.query;
+    const query = { Estado: true };
+    const [total, carros] = yield Promise.all([
         Models_1.Carro.countDocuments(query),
         Models_1.Carro.find(query)
             .skip(Number(desde))
@@ -33,7 +33,7 @@ const obtenerCarros = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     ]);
     res.json({
         total,
-        datos
+        carros
     });
 });
 exports.obtenerCarros = obtenerCarros;

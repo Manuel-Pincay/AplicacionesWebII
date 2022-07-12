@@ -1,7 +1,13 @@
 import './style.css'
 import axios from 'axios';
 import { ICarros, IResCarros } from './interfaces/ICarros';
+
 const app = document.querySelector<HTMLDivElement>('#app')!
+
+
+app.innerHTML = `
+  <h1>CARROS</h1>
+`;
 
 const httpAxios = axios.create({
   baseURL: `http://localhost:2500/v1/sextoa/api/`
@@ -9,14 +15,14 @@ const httpAxios = axios.create({
 
 const etiqueta = document.createElement("label");
 etiqueta.textContent=`ID`
-const input = document.createElement("input");
-input.id="id"
-etiqueta.htmlFor="id"
 
+const input = document.createElement("input");
+input.id = "id";
+
+etiqueta.htmlFor = "id";
 
 app.appendChild(etiqueta);
 app.appendChild(input);
-
 
 
 app.innerHTML += `
@@ -32,13 +38,14 @@ app.innerHTML += `
 <button id="consultar">Consultar</button>
 
 <div id="cuerpo"/>
-`
+`;
+
 const id = document.querySelector<HTMLInputElement>('#id')!
-const carro_placa = document.querySelector<HTMLInputElement>('#carro_placa')!
-const carro_modelo = document.querySelector<HTMLInputElement>('#carro_modelo')!
-const carro_aÑo = document.querySelector<HTMLInputElement>('#carro_aÑo')!
-const carro_comentario = document.querySelector<HTMLInputElement>('#carro_comentario')!
-const estado = document.querySelector<HTMLInputElement>('#estado')!
+const carro_placa = document.querySelector<HTMLInputElement>('#CARRO_PLACA')!
+const carro_modelo = document.querySelector<HTMLInputElement>('#CARRO_MODELO')!
+const carro_aÑo = document.querySelector<HTMLInputElement>('#CARRO_AÑO')!
+const carro_comentario = document.querySelector<HTMLInputElement>('#CARRO_COMENTARIO')!
+const estado = document.querySelector<HTMLInputElement>('#Estado')!
 
 const nuevo = document.querySelector<HTMLButtonElement>("#nuevo")!
 const grabar = document.querySelector<HTMLButtonElement>("#grabar")!
@@ -56,30 +63,33 @@ nuevo.addEventListener('click', () =>{
 })
 
 consultar.addEventListener('click', async ()=>{
-  const rescarros:IResCarros = await (await httpAxios.get<IResCarros>('carros')).data
-  console.log(rescarros);
-  const { icarros } = rescarros
-  console.log(icarros);
+    const rescarros:IResCarros = await (await httpAxios.get<IResCarros>('carros')).data;
 
-  const tabla =  document.createElement('table');
-  tabla.id="tabla"
-  tabla.border="1"
+    const tabla =  document.createElement('table');
+    tabla.id="tabla"
+    tabla.border="1"
 
-  for ( const carro of icarros )
-  {
-    const row = tabla.insertRow()
-    const celda = row.insertCell()
-    celda.innerHTML 
-    = ` <button class="boton" value='${carro._id}'>
-     ${carro.CARRO_PLACA} </button>`;
+    tabla.style.marginTop = "40px";
+    tabla.style.marginLeft = "35%";
 
-    const celda2= row.insertCell()
-    celda2.innerHTML=`${carro.CARRO_AÑO}`
-  }
+    console.log(rescarros);
+    const { carros } = rescarros;
+    console.log(carros);
+
+    for ( const carro of carros )
+    {
+      const row = tabla.insertRow();
+      const celda = row.insertCell();
+      celda.innerHTML = `<button class="boton" value='${carro._id}'>${carro.CARRO_PLACA} </button>`;
+
+      const celda2= row.insertCell();
+      celda2.innerHTML=`${carro.CARRO_AÑO}`
+
+    }
 
   cuerpo.innerHTML=""
   cuerpo.appendChild(tabla)
-  
+ 
   document.querySelectorAll('.boton').forEach( (ele : Element )  =>{
 
      ele.addEventListener('click',async ()=>
@@ -92,9 +102,6 @@ consultar.addEventListener('click', async ()=>{
       carro_comentario.value = data.CARRO_COMENTARIO;
       estado.value = data.Estado!.toString();
       id.value = data._id!
-
-
-
     })
 
   })

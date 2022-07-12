@@ -5,9 +5,9 @@ import { Request, Response } from 'express'
 
 const obtenerCarros = async (req:Request,res:Response) => {
 
-    const { limite =10, desde=0} = req.query;
-    const query = { estado:true };
-    const [total, datos]:[Number,Carros[]] = await Promise.all([
+    const { limite ='10', desde='0'} = req.query;
+    const query = { Estado:true };
+    const [total, carros]:[Number,Carros[]] = await Promise.all([
         Carro.countDocuments(query),
         Carro.find(query)
         .skip(Number(desde))
@@ -17,7 +17,13 @@ const obtenerCarros = async (req:Request,res:Response) => {
 
     res.json({
         total,
-        datos})
+        carros})
+
+
+    console.log({
+        total,
+        carros
+    });    
 }
 // Cambio
 const obtenerCarro = async (req:Request, res:Response) => {
