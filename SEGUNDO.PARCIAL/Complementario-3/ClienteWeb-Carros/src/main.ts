@@ -174,27 +174,28 @@ const asignarvalores =  ( ) => {
 grabar.addEventListener('click', async ()=>{
   const data =  asignarvalores()
     /* ---------------------- MODIFICACION DE DATOS  ---------------------- */
-    if ( id.value.trim().length>0 )
+  if ( id.value.trim().length>0 )
     { 
-      const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${carro_placa.value}`,data )).data
+      const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${carro_placa.value}`,data )).data;
       console.log(`El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`);
       swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`, `info`);
-    }
+    };
     /* ||||||||||||||||||||||||||| FIN MODIFICAR  ||||||||||||||||||||||||||| */
 
   /* ---------------------- CREAR DATOS  ---------------------- */
-    if (id.value.trim().length === 0) {
+  if (id.value.trim().length === 0) {
+    console.log(`${id.value}`);
 
     if(carro_placa.value.length === 0) { 
       try {
-      swal(`CORREGIR!`, `El PLACA CARRO ES OBLIGATORIA`, `warning`);
+      swal(`CORREGIR!`, `El PLACA CARRO ES OBLIGATORIA 1 IF`, `warning`);
       }catch (e) { swal(`CORREGIR!`, ` El PLACA CARRO ES OBLIGATORIA`, `warning`);}
     }
     else{
-      if( carro_placa.value === data.CARRO_PLACA.toString() )
+      if(carro_placa.value === data.CARRO_PLACA.toString())
       {
-        /* swal(`CORREGIR!`, `El CARRO YA EXISTE`, `warning`); */
-        swal({
+        swal (`CORREGIR!`, ` El PLACA CARRO ES OBLIGATORIA 2 IF`, `warning`);
+        /* swal({
           title: "ERROR DE DATOS!",
           text: "Placa ya existe, Desea reactivar el registro anterior?",
           icon: "warning",
@@ -215,26 +216,25 @@ grabar.addEventListener('click', async ()=>{
           } else {
             swal("EL ARCHIVO SIGUE DESHABILITADO");
           }
-        });
-        
+        });    */ 
       }
+      
       else{
-            try 
+          try 
+          {
+          const rescarros:ICarros =  await (await httpAxios.post<ICarros>(`carros`,data)).data;
+          console.log(`El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`);
+          swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`, `success`);
+          } 
+          catch (error) {
+            if (axios.isAxiosError(error))
             {
-            const rescarros:ICarros =  await (await httpAxios.post<ICarros>(`carros`,data)).data
-            console.log(`El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`);
-            swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`, `success`);
-            } 
-            catch (error) 
-            {
-              if (axios.isAxiosError(error))
-              {
-                console.log(`Error en axios :(`);     
-              }
-              console.log(error);
-              swal(`Se Presento un Error!`, `Error :(`, `error`);        
+              console.log(`Error en axios :(`);     
             }
-       }
+            console.log(error);
+            swal(`Se Presento un Error!`, `Error :(`, `error`);        
+          }
+       };
       
       /* return */
     }
