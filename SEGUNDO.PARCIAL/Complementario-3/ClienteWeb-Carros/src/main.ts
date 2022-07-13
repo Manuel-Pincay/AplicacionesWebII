@@ -179,18 +179,19 @@ grabar.addEventListener('click', async ()=>{
       const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${carro_placa.value}`,data )).data;
       console.log(`El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`);
       swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`, `info`);
+      return;
+
     };
     /* ||||||||||||||||||||||||||| FIN MODIFICAR  ||||||||||||||||||||||||||| */
 
   /* ---------------------- CREAR DATOS  ---------------------- */
+
   if (id.value.trim().length === 0) {
-    console.log(`${id.value}`);
 
     if(carro_placa.value.length === 0) { 
-      try {
       swal(`CORREGIR!`, `El PLACA CARRO ES OBLIGATORIA 1 IF`, `warning`);
-      }catch (e) { swal(`CORREGIR!`, ` El PLACA CARRO ES OBLIGATORIA`, `warning`);}
     }
+
     else{
       if(carro_placa.value === data.CARRO_PLACA.toString())
       {
@@ -201,29 +202,25 @@ grabar.addEventListener('click', async ()=>{
           icon: "warning",
           buttons: true,
           dangerMode: true,
-        })
-        .then(async (willDelete) => {
-          if (willDelete) {
-            try 
+          })
+          .then(async (willDelete) => {
+            if (willDelete) 
             {
               const recovery = carro_placa.value;
-              (await httpAxios.put<ICarros>(`carros/recuperar/${recovery}`))
-            } 
-            catch (error) 
-            {swal(`Se Presento un Error!`, `Error :(`, `error`)}
-            swal("RECUPERADO CON EXITO", {icon: "success",});  
+              (await httpAxios.put<ICarros>(`carros/recuperar/${recovery}`)) 
+              {swal(`Se Presento un Error!`, `Error :(`, `error`)}
+              swal("RECUPERADO CON EXITO", {icon: "success",});  
 
           } else {
             swal("EL ARCHIVO SIGUE DESHABILITADO");
           }
         });    
       }
-      
-      else{
+
+      catch(eror){
           try 
           {
           const rescarros:ICarros =  await (await httpAxios.post<ICarros>(`carros`,data)).data;
-          console.log(`El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`);
           swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`, `success`);
           } 
           catch (error) {
@@ -232,7 +229,7 @@ grabar.addEventListener('click', async ()=>{
               console.log(`Error en axios :(`);     
             }
             console.log(error);
-            swal(`Se Presento un Error!`, `Error :(`, `error`);        
+            swal(`Se Presento un Error en AXIOS!`, `Error :(`, `error`);        
           }
        };
       
