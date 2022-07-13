@@ -1,9 +1,7 @@
 import './style.css'
 import axios from 'axios';
 import { ICarros, IResCarros } from './interfaces/ICarros';
-
 const app = document.querySelector<HTMLDivElement>('#app')!
-
 
 app.innerHTML = `
   <h1>CARROS</h1>
@@ -26,16 +24,18 @@ app.appendChild(input);
 
 
 app.innerHTML += `
+<br><br>
+<label for='CARRO_PLACA' >CarroPlaca</label><input id='CARRO_PLACA' /><br><br>
+<label for='CARRO_MODELO' >CarroModelo</label><input id='CARRO_MODELO' /><br><br>
+<label for='CARRO_AÑO' >CarroAño</label><input id='CARRO_AÑO' /><br><br>
+<label for='CARRO_COMENTARIO' >CarroComentario</label><input id='CARRO_COMENTARIO' /><br><br>
+<label for='Estado' >Estado</label><input id='Estado' /><br><br>
+<br><br>
+<button id="grabar">GUARDAR DATOS</button>
+<button id="nuevo">LIMPIAR CELDAS</button>
+<button id="consultar">CONSULTAR BASE DE DATOS</button>
 
-<label for='CARRO_PLACA' >CarroPlaca</label><input id='CARRO_PLACA' />
-<label for='CARRO_MODELO' >CarroModelo</label><input id='CARRO_MODELO' />
-<label for='CARRO_AÑO' >CarroAño</label><input id='CARRO_AÑO' />
-<label for='CARRO_COMENTARIO' >CarroComentario</label><input id='CARRO_COMENTARIO' />
-<label for='Estado' >Estado</label><input id='Estado' />
 
-<button id="grabar">Grabar</button>
-<button id="nuevo">Nuevo</button>
-<button id="consultar">Consultar</button>
 
 <div id="cuerpo"/>
 `;
@@ -51,6 +51,8 @@ const nuevo = document.querySelector<HTMLButtonElement>("#nuevo")!
 const grabar = document.querySelector<HTMLButtonElement>("#grabar")!
 const consultar = document.querySelector<HTMLButtonElement>("#consultar")!
 
+/* const eliminar = document.querySelector<HTMLButtonElement>("#botoneliminar")! */
+
 const cuerpo = document.querySelector<HTMLDivElement>('#cuerpo')!
 
 nuevo.addEventListener('click', () =>{
@@ -62,44 +64,70 @@ nuevo.addEventListener('click', () =>{
   carro_comentario.value=""
 })
 
+/* ---------------------- INICIO API CONSULTAS GENERAL Y ESPECIFICA---------------------- */
 consultar.addEventListener('click', async ()=>{
+  /* ---------------------- CONSULTA GENERAL ---------------------- */
     const rescarros:IResCarros = await (await httpAxios.get<IResCarros>('carros')).data;
 
     const tabla =  document.createElement('table');
     tabla.id="tabla"
     tabla.border="1"
 
-    tabla.style.marginTop = "40px";
+/*     tabla.style.marginTop = "40px";
     tabla.style.marginLeft = "35%";
+ */
+    tabla.style.marginTop = "40px";
+    tabla.style.marginLeft = "20%";
+    tabla.style.width = "80 %";
 
     console.log(rescarros);
     const { carros } = rescarros;
     console.log(carros);
+
+
+      const row2 = tabla.insertRow();
+      const xcelda = row2.insertCell();
+      xcelda.innerHTML = `<p>PLACA</p>`;
+      const xcelda2= row2.insertCell();
+      xcelda2.innerHTML=`<p>AÑO VEHICULO</p>`;
+      const xcelda3= row2.insertCell();
+      xcelda3.innerHTML=`<p>MODELO</p>`;
+      const xcelda4= row2.insertCell();
+      xcelda4.innerHTML=`<p>COMENTARIO</p>`;
 
     for ( const carro of carros )
     {
       const row = tabla.insertRow();
       const celda = row.insertCell();
       celda.innerHTML = `<button class="boton" value='${carro.CARRO_PLACA}'>${carro.CARRO_PLACA} </button>`;
-
       const celda2= row.insertCell();
       celda2.innerHTML=`${carro.CARRO_AÑO}`
+      const celda3= row.insertCell();
+      celda3.innerHTML=`${carro.CARRO_MODELO}`;
+      const celda4= row.insertCell();
+      celda4.innerHTML=`${carro.CARRO_COMENTARIO}`;
+      const celda5= row.insertCell();
+      celda5.innerHTML=`<button class="botoneliminar" value='${carro.CARRO_PLACA}'>ELIMINAR </button>`;
 
     }
+  /* ||||||||||||||||||||||||||| FIN CONSULTA GENERAL ||||||||||||||||||||||||||| */
 
-  cuerpo.innerHTML=""
-  cuerpo.appendChild(tabla)
+/* ---------------------- CONSULTA ESPECIFICA ---------------------- */
+  cuerpo.innerHTML=``;
+  cuerpo.appendChild(tabla);
  
   document.querySelectorAll('.boton').forEach( (ele : Element )  =>{
 
      ele.addEventListener('click',async ()=>
-    {
-      const {data} = await httpAxios.get<ICarros>(`carros/${(ele as HTMLButtonElement).value}`)
+    { 
+      const idcarro = (ele as HTMLButtonElement ).value;
+     /* console.log(idcarro); */
+      const {data} = await httpAxios.get<ICarros>(`carros/${idcarro}`)
       console.log(data)
-      
+
       carro_placa.value = data.CARRO_PLACA;
       carro_modelo.value = data.CARRO_MODELO;
-      carro_aÑo.value = data.CARRO_AÑO.toString();
+      carro_aÑo.value = data.CARRO_AÑO?.toString() || 'Indefinida';
       carro_comentario.value = data.CARRO_COMENTARIO;
       estado.value = data.Estado!.toString();
       id.value = data._id!
@@ -107,10 +135,27 @@ consultar.addEventListener('click', async ()=>{
 
   })
 
+  document.querySelectorAll('.botoneliminar').forEach( (ele2 : Element )  =>{
+
+    ele2.addEventListener('click',async ()=>
+   { 
+     const idcarro = (ele2 as HTMLButtonElement ).value;
+     console.log(idcarro);
+     const {data} = await httpAxios.delete<ICarros>(`carros/${idcarro}`)
+     const eliminado = data
+     console.log(data);
+     console.log(`Estancia eliminada => ${eliminado.CARRO_PLACA}`);
+
+   })
+
+ })
+  /* ||||||||||||||||||||||||||| FIN CONSULTA ESPECIFICA ||||||||||||||||||||||||||| */
 
 })
 
-const asignarvalores = ( ) => {
+/* |||||||||||||||||||||||||||||||||||||| FIN APIS CONSULTA GENERAL Y ESPECIFICA |||||||||||||||||||||||||||||||||||||||| */
+
+const asignarvalores =  ( ) => {
   const data:ICarros = {
     CARRO_PLACA: carro_placa.value,
     CARRO_MODELO: carro_modelo.value,
@@ -143,3 +188,26 @@ grabar.addEventListener('click', async ()=>{
   
 
 })
+
+
+/* -------------------------------- COMIENZO API ELIMINAR -------------------------------- */
+
+/* eliminar.addEventListener('click', async () => {
+
+  document.querySelectorAll('.boton').forEach( (ele2 : Element )  =>{
+
+    ele2.addEventListener('click',async ()=>
+   { 
+     const idcarro = (ele2 as HTMLButtonElement ).value;
+     console.log(idcarro);
+     const {data} = await httpAxios.delete<ICarros>(`carros/${idcarro}`)
+     const eliminado = data
+     console.log(data);
+     console.log(`Estancia eliminada => ${eliminado.CARRO_PLACA}`);
+
+   })
+
+ })
+
+
+}) */

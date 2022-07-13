@@ -71,3 +71,11 @@ clientes
 - Install Axios
 
         > npm i axios
+
+# MEJORAS PROYECTO
+
+*VALIDACIONES*
+
+- cuando este eliminiado un dato y se quiera ingresar un dato con la misma placa que fue eliminado anterior mente solo se cambie el estado de true
+
+        

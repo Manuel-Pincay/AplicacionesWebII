@@ -22,11 +22,11 @@ const obtenerCarros = async (req:Request,res:Response) => {
 // Cambio
 const obtenerCarro = async (req:Request, res:Response) => {
     const CARRO_PLACA = req.params;
-    const carro: Carros | null = (await Carro.findOne(CARRO_PLACA))
-    if(!carro){       
+    const carros: Carros | null = (await Carro.findOne(CARRO_PLACA))
+    if(!carros){       
         return res.status(400).json({status:'No es una Placa valida >:c'})
     }
-    res.json({carro});
+    res.json(carros);
 }   
 
 const crearCarro = async (req:Request, res:Response)=>{

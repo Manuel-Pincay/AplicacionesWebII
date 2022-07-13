@@ -40,11 +40,11 @@ exports.obtenerCarros = obtenerCarros;
 // Cambio
 const obtenerCarro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const CARRO_PLACA = req.params;
-    const carro = (yield Models_1.Carro.findOne(CARRO_PLACA));
-    if (!carro) {
+    const carros = (yield Models_1.Carro.findOne(CARRO_PLACA));
+    if (!carros) {
         return res.status(400).json({ status: 'No es una Placa valida >:c' });
     }
-    res.json({ carro });
+    res.json(carros);
 });
 exports.obtenerCarro = obtenerCarro;
 const crearCarro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
