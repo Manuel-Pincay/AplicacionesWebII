@@ -195,7 +195,7 @@ grabar.addEventListener('click', async ()=>{
       if(carro_placa.value === data.CARRO_PLACA.toString())
       {
         swal (`CORREGIR!`, ` El PLACA CARRO ES OBLIGATORIA 2 IF`, `warning`);
-        /* swal({
+         swal({
           title: "ERROR DE DATOS!",
           text: "Placa ya existe, Desea reactivar el registro anterior?",
           icon: "warning",
@@ -216,7 +216,7 @@ grabar.addEventListener('click', async ()=>{
           } else {
             swal("EL ARCHIVO SIGUE DESHABILITADO");
           }
-        });    */ 
+        });    
       }
       
       else{
