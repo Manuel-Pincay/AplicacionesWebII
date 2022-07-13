@@ -167,9 +167,9 @@ const asignarvalores =  ( ) => {
 
 grabar.addEventListener('click', async ()=>{
   const data =  asignarvalores()
-  if ( id.value.trim().length>0 )
+  if ( carro_placa.value.trim().length>0 )
   {
-   const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${id.value}`,data )).data
+   const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${carro_placa.value}`,data )).data
    console.log(`El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`);
    return;
   }
@@ -188,7 +188,6 @@ grabar.addEventListener('click', async ()=>{
   
 
 })
-
 
 /* -------------------------------- COMIENZO API ELIMINAR -------------------------------- */
 
