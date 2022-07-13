@@ -1,5 +1,6 @@
 import './style.css'
 import axios from 'axios';
+import swal from 'sweetalert';
 import { ICarros, IResCarros } from './interfaces/ICarros';
 const app = document.querySelector<HTMLDivElement>('#app')!
 
@@ -134,6 +135,7 @@ consultar.addEventListener('click', async ()=>{
     })
 
   })
+/* ||||||||||||||||||||||||||| FIN CONSULTA ESPECIFICA ||||||||||||||||||||||||||| */
 
   document.querySelectorAll('.botoneliminar').forEach( (ele2 : Element )  =>{
 
@@ -145,11 +147,13 @@ consultar.addEventListener('click', async ()=>{
      const eliminado = data
      console.log(data);
      console.log(`Estancia eliminada => ${eliminado.CARRO_PLACA}`);
+     swal(`Listo!`, `Eliminado ${eliminado.CARRO_PLACA}!`, `success`);
+
 
    })
 
  })
-  /* ||||||||||||||||||||||||||| FIN CONSULTA ESPECIFICA ||||||||||||||||||||||||||| */
+  
 
 })
 
@@ -167,15 +171,17 @@ const asignarvalores =  ( ) => {
 
 grabar.addEventListener('click', async ()=>{
   const data =  asignarvalores()
-  if ( carro_placa.value.trim().length>0 )
+  if ( id.value.trim().length>0 )
   {
    const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${carro_placa.value}`,data )).data
    console.log(`El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`);
+   swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`, `info`);
    return;
   }
   try {
    const rescarros:ICarros =  await (await httpAxios.post<ICarros>(`carros`,data)).data
    console.log(`El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`);
+   swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`, `success`);
   } catch (error) {
      if (axios.isAxiosError(error))
      {
