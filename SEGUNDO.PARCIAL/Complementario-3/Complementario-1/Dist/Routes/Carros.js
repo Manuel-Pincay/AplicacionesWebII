@@ -12,4 +12,4 @@ router.get('/:CARRO_PLACA', obtenerCarro);
 router.post('/', [(0, express_validator_1.check)('CARRO_PLACA', 'La placa es obligatoria').not().isEmpty()], crearCarro);
 router.put('/:CARRO_PLACA', [(0, express_validator_1.check)('CARRO_PLACA', 'La placa es obligatoria').not().isEmpty()], actualizarCarro);
 router.delete('/:CARRO_PLACA', borrarCarro);
-router.delete('/recuperar/:CARRO_PLACA', recuperarCarro);
+router.put('/recuperar/:CARRO_PLACA', recuperarCarro);

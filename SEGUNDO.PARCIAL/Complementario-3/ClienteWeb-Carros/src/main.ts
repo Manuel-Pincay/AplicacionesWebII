@@ -206,12 +206,10 @@ grabar.addEventListener('click', async ()=>{
             try 
             {
               const recovery = carro_placa.value;
-              (await httpAxios.delete<ICarros>(`carros/recuperar/${recovery}`))
+              (await httpAxios.put<ICarros>(`carros/recuperar/${recovery}`))
             } 
             catch (error) 
-            {
-              swal(`Se Presento un Error!`, `Error :(`, `error`);        
-            }
+            {swal(`Se Presento un Error!`, `Error :(`, `error`)}
             swal("RECUPERADO CON EXITO", {icon: "success",});  
 
           } else {
@@ -245,25 +243,3 @@ grabar.addEventListener('click', async ()=>{
 
 
 })
-
-/* -------------------------------- COMIENZO API ELIMINAR -------------------------------- */
-
-/* eliminar.addEventListener('click', async () => {
-
-  document.querySelectorAll('.boton').forEach( (ele2 : Element )  =>{
-
-    ele2.addEventListener('click',async ()=>
-   { 
-     const idcarro = (ele2 as HTMLButtonElement ).value;
-     console.log(idcarro);
-     const {data} = await httpAxios.delete<ICarros>(`carros/${idcarro}`)
-     const eliminado = data
-     console.log(data);
-     console.log(`Estancia eliminada => ${eliminado.CARRO_PLACA}`);
-
-   })
-
- })
-
-
-}) */
