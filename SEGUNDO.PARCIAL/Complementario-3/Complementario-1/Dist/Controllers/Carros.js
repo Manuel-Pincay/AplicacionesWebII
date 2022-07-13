@@ -20,7 +20,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.borrarCarro = exports.actualizarCarro = exports.crearCarro = exports.obtenerCarros = exports.obtenerCarro = void 0;
+exports.recuperarCarro = exports.borrarCarro = exports.actualizarCarro = exports.crearCarro = exports.obtenerCarros = exports.obtenerCarro = void 0;
 const Models_1 = require("../Models");
 const obtenerCarros = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { limite = '10', desde = '0' } = req.query;
@@ -73,3 +73,9 @@ const borrarCarro = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     res.json(CarroBorrado);
 });
 exports.borrarCarro = borrarCarro;
+const recuperarCarro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params;
+    const CarroRecuperado = yield Models_1.Carro.findOneAndUpdate(id, { Estado: true }, { new: true }).catch((err) => { res.status(400).json({ status: 'No es una Placa valida >:c', error: err }); });
+    res.json(CarroRecuperado);
+});
+exports.recuperarCarro = recuperarCarro;

@@ -12,10 +12,11 @@ const httpAxios = axios.create({
   baseURL: `http://localhost:2500/v1/sextoa/api/`
 });
 
-const etiqueta = document.createElement("label");
+const etiqueta = document.createElement("label")
 etiqueta.textContent=`ID`
 
-const input = document.createElement("input");
+const input = document.createElement("input")
+
 input.id = "id";
 
 etiqueta.htmlFor = "id";
@@ -26,6 +27,7 @@ app.appendChild(input);
 
 app.innerHTML += `
 <br><br>
+
 <label for='CARRO_PLACA' >CarroPlaca</label><input id='CARRO_PLACA' /><br><br>
 <label for='CARRO_MODELO' >CarroModelo</label><input id='CARRO_MODELO' /><br><br>
 <label for='CARRO_AÑO' >CarroAño</label><input id='CARRO_AÑO' /><br><br>
@@ -100,7 +102,7 @@ consultar.addEventListener('click', async ()=>{
     {
       const row = tabla.insertRow();
       const celda = row.insertCell();
-      celda.innerHTML = `<button class="boton" value='${carro.CARRO_PLACA}'>${carro.CARRO_PLACA} </button>`;
+      celda.innerHTML = `<button class="boton"  value='${carro.CARRO_PLACA}'>${carro.CARRO_PLACA} </button>`;
       const celda2= row.insertCell();
       celda2.innerHTML=`${carro.CARRO_AÑO}`
       const celda3= row.insertCell();
@@ -137,6 +139,8 @@ consultar.addEventListener('click', async ()=>{
   })
 /* ||||||||||||||||||||||||||| FIN CONSULTA ESPECIFICA ||||||||||||||||||||||||||| */
 
+  /* ---------------------- ELIMINAR  ---------------------- */
+
   document.querySelectorAll('.botoneliminar').forEach( (ele2 : Element )  =>{
 
     ele2.addEventListener('click',async ()=>
@@ -149,15 +153,14 @@ consultar.addEventListener('click', async ()=>{
      console.log(`Estancia eliminada => ${eliminado.CARRO_PLACA}`);
      swal(`Listo!`, `Eliminado ${eliminado.CARRO_PLACA}!`, `success`);
 
-
+     /* ||||||||||||||||||||||||||| FIN ELIMINAR  ||||||||||||||||||||||||||| */
    })
 
  })
   
-
 })
 
-/* |||||||||||||||||||||||||||||||||||||| FIN APIS CONSULTA GENERAL Y ESPECIFICA |||||||||||||||||||||||||||||||||||||||| */
+/* |||||||||||||||||||||||||||||||||||||| FIN APIS CONSULTA GENERAL , ESPECIFICA Y ELIMINAR |||||||||||||||||||||||||||||||||||||||| */
 
 const asignarvalores =  ( ) => {
   const data:ICarros = {
@@ -168,30 +171,78 @@ const asignarvalores =  ( ) => {
   }
   return data;
 }
-
 grabar.addEventListener('click', async ()=>{
   const data =  asignarvalores()
-  if ( id.value.trim().length>0 )
-  {
-   const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${carro_placa.value}`,data )).data
-   console.log(`El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`);
-   swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`, `info`);
-   return;
+    /* ---------------------- MODIFICACION DE DATOS  ---------------------- */
+    if ( id.value.trim().length>0 )
+    { 
+      const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${carro_placa.value}`,data )).data
+      console.log(`El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`);
+      swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`, `info`);
+    }
+    /* ||||||||||||||||||||||||||| FIN MODIFICAR  ||||||||||||||||||||||||||| */
+
+  /* ---------------------- CREAR DATOS  ---------------------- */
+    if (id.value.trim().length === 0) {
+
+    if(carro_placa.value.length === 0) { 
+      try {
+      swal(`CORREGIR!`, `El PLACA CARRO ES OBLIGATORIA`, `warning`);
+      }catch (e) { swal(`CORREGIR!`, ` El PLACA CARRO ES OBLIGATORIA`, `warning`);}
+    }
+    else{
+      if( carro_placa.value === data.CARRO_PLACA.toString() )
+      {
+        /* swal(`CORREGIR!`, `El CARRO YA EXISTE`, `warning`); */
+        swal({
+          title: "ERROR DE DATOS!",
+          text: "Placa ya existe, Desea reactivar el registro anterior?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then(async (willDelete) => {
+          if (willDelete) {
+            try 
+            {
+              const recovery = carro_placa.value;
+              (await httpAxios.delete<ICarros>(`carros/recuperar/${recovery}`))
+            } 
+            catch (error) 
+            {
+              swal(`Se Presento un Error!`, `Error :(`, `error`);        
+            }
+            swal("RECUPERADO CON EXITO", {icon: "success",});  
+
+          } else {
+            swal("EL ARCHIVO SIGUE DESHABILITADO");
+          }
+        });
+        
+      }
+      else{
+            try 
+            {
+            const rescarros:ICarros =  await (await httpAxios.post<ICarros>(`carros`,data)).data
+            console.log(`El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`);
+            swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`, `success`);
+            } 
+            catch (error) 
+            {
+              if (axios.isAxiosError(error))
+              {
+                console.log(`Error en axios :(`);     
+              }
+              console.log(error);
+              swal(`Se Presento un Error!`, `Error :(`, `error`);        
+            }
+       }
+      
+      /* return */
+    }
+  /* ||||||||||||||||||||||||||| FIN CREAR  ||||||||||||||||||||||||||| */
   }
-  try {
-   const rescarros:ICarros =  await (await httpAxios.post<ICarros>(`carros`,data)).data
-   console.log(`El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`);
-   swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`, `success`);
-  } catch (error) {
-     if (axios.isAxiosError(error))
-     {
-       console.log(`Error en axios :(`);
-       
-     }
-     console.log(error);
-         
-  }
-  
+
 
 })
 

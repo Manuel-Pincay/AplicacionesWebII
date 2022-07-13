@@ -46,10 +46,13 @@ const crearCarro = async (req:Request, res:Response)=>{
 
 const actualizarCarro = async (req:Request, res:Response)=>{
     const id = req.params;
+    
     const {Estado, ...body} = req.body as Carros;
     const CarroModificado = 
     await Carro.findOneAndUpdate( id,body, { new:true }).catch((err)=>{res.status(400).json({status:'No es una Placa valida >:c', error:err})});
     res.json(CarroModificado);
+
+    
 }
 
 
@@ -59,10 +62,17 @@ const borrarCarro = async (req:Request, res:Response)=>{
     res.json(CarroBorrado);
 }
 
+const recuperarCarro = async (req:Request, res:Response)=>{
+    const id = req.params;
+    const CarroRecuperado = await Carro.findOneAndUpdate(id, {Estado:true}, {new:true}).catch((err)=>{res.status(400).json({status:'No es una Placa valida >:c', error:err})});
+    res.json(CarroRecuperado);
+}
+
 export{
     obtenerCarro,
     obtenerCarros,
     crearCarro,
     actualizarCarro,
-    borrarCarro
+    borrarCarro,
+    recuperarCarro
 }
