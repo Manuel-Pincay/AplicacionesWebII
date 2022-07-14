@@ -9,12 +9,12 @@ const httpAxios = axios.create({
   });
 
 const consultaCarros = async () => {
-      /* ---------------------- CONSULTA GENERAL ---------------------- */
-      const rescarros:IResCarros = await (await httpAxios.get<IResCarros>('carros')).data;
+    /* ---------------------- CONSULTA GENERAL ---------------------- */
+     const rescarros:IResCarros = await (await httpAxios.get<IResCarros>('carros')).data;
 
-      const tabla =  document.createElement('table');
-      tabla.id="tabla"
-      tabla.border="1"
+     const tabla =  document.createElement('table');
+     tabla.id="tabla"
+     tabla.border="1"
   
   /*     tabla.style.marginTop = "40px";
       tabla.style.marginLeft = "35%";
