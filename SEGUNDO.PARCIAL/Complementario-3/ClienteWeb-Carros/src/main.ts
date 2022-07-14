@@ -4,7 +4,6 @@ import swal from 'sweetalert';
 import { ICarros, IResCarros } from './interfaces/ICarros';
 const app = document.querySelector<HTMLDivElement>('#app')!
 
-
 app.innerHTML = `
   <h1>CARROS</h1>
 `;
@@ -43,7 +42,7 @@ app.innerHTML += `
 
 <div id="cuerpo"/>
 `;
-
+/* -------------- BOTONES -------------------------------- */
 const id = document.querySelector<HTMLInputElement>('#id')!
 const carro_placa = document.querySelector<HTMLInputElement>('#CARRO_PLACA')!
 const carro_modelo = document.querySelector<HTMLInputElement>('#CARRO_MODELO')!
@@ -51,13 +50,13 @@ const carro_aÑo = document.querySelector<HTMLInputElement>('#CARRO_AÑO')!
 const carro_comentario = document.querySelector<HTMLInputElement>('#CARRO_COMENTARIO')!
 const estado = document.querySelector<HTMLInputElement>('#Estado')!
 
+/* -------------- BOTONES FUNCIONES CRUD -------------------------------- */
 const nuevo = document.querySelector<HTMLButtonElement>("#nuevo")!
 const grabar = document.querySelector<HTMLButtonElement>("#grabar")!
 const consultar = document.querySelector<HTMLButtonElement>("#consultar")!
-
-/* const eliminar = document.querySelector<HTMLButtonElement>("#botoneliminar")! */
-
 const cuerpo = document.querySelector<HTMLDivElement>('#cuerpo')!
+
+/* -------------- FUNCION LIMPIAR CELDAS -------------------------------- */
 
 nuevo.addEventListener('click', () =>{
   id.value=""
@@ -67,8 +66,9 @@ nuevo.addEventListener('click', () =>{
   carro_aÑo.value=""
   carro_comentario.value=""
 })
+/* **********************************FIN FUNCION LIMPIAR CELDAS ********************************** */
 
-/* ---------------------- INICIO API CONSULTAS GENERAL Y ESPECIFICA---------------------- */
+/* ---------------------- INICIO API CONSULTA GENERAL , ESPECIFICA Y ELIMINAR---------------------- */
 consultar.addEventListener('click', async ()=>{
   /* ---------------------- CONSULTA GENERAL ---------------------- */
     const rescarros:IResCarros = await (await httpAxios.get<IResCarros>('carros')).data;
@@ -160,8 +160,7 @@ consultar.addEventListener('click', async ()=>{
  })
   
 })
-
-/* |||||||||||||||||||||||||||||||||||||| FIN APIS CONSULTA GENERAL , ESPECIFICA Y ELIMINAR |||||||||||||||||||||||||||||||||||||||| */
+/* ********************************** FIN APIS CONSULTA GENERAL , ESPECIFICA Y ELIMINAR ********************************** */
 
 const asignarvalores =  ( ) => {
   const data:ICarros = {
@@ -172,6 +171,8 @@ const asignarvalores =  ( ) => {
   }
   return data;
 }
+
+/* -------------- INICIO API GUARDAR DATOS -------------------------------- */
 grabar.addEventListener('click', async ()=>{
   const data =  asignarvalores()
     /* ---------------------- MODIFICACION DE DATOS  ---------------------- */
@@ -183,7 +184,7 @@ grabar.addEventListener('click', async ()=>{
       return;
 
     };
-    /* ||||||||||||||||||||||||||| FIN MODIFICAR  ||||||||||||||||||||||||||| */
+    /* ********************************** FIN MODIFICAR  ********************************** */
 
   /* ---------------------- CREAR DATOS  ---------------------- */
 
@@ -245,3 +246,6 @@ grabar.addEventListener('click', async ()=>{
 
 
 })
+/* ********************************** FIN API GUARDAR DATOS********************************** */
+
+
