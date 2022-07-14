@@ -28,11 +28,11 @@ app.appendChild(input);
 app.innerHTML += `
 <br><br>
 <label for='id' >ID </label><input readonly="readonly" type="text" id='id' /><br><br>
-<label for='CARRO_PLACA' >CarroPlaca</label><input id='CARRO_PLACA' /><br><br>
-<label for='CARRO_MODELO' >CarroModelo</label><input id='CARRO_MODELO' /><br><br>
-<label for='CARRO_AÑO' >CarroAño</label><input id='CARRO_AÑO' /><br><br>
-<label for='CARRO_COMENTARIO' >CarroComentario</label><input id='CARRO_COMENTARIO' /><br><br>
-<label for='Estado' >Estado</label><input id='Estado' /><br><br>
+<label for='CARRO_PLACA' >CarroPlaca </label><input id='CARRO_PLACA' /><br><br>
+<label for='CARRO_MODELO' >CarroModelo </label><input id='CARRO_MODELO' /><br><br>
+<label for='CARRO_AÑO' >CarroAño </label><input id='CARRO_AÑO' /><br><br>
+<label for='CARRO_COMENTARIO' >CarroComentario </label><input id='CARRO_COMENTARIO' /><br><br>
+<label for='Estado' >Estado </label><input id='Estado' /><br><br>
 <br><br>
 <button id="grabar">GUARDAR DATOS</button>
 <button id="nuevo">LIMPIAR CELDAS</button>
