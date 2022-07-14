@@ -9,7 +9,6 @@ const httpAxios = axios.create({
   });
 
 const consultaCarros = async () => {
-
       /* ---------------------- CONSULTA GENERAL ---------------------- */
       const rescarros:IResCarros = await (await httpAxios.get<IResCarros>('carros')).data;
 
@@ -121,7 +120,7 @@ const guardarCarros = async () => {
     
   const data =  asignarvalores()
   /* ---------------------- MODIFICACION DE DATOS  ---------------------- */
-if ( id.value.trim().length>0 )
+  if ( id.value.trim().length>0 )
   { 
     const rescarros:ICarros = await (await httpAxios.put<ICarros>(`carros/${carro_placa.value}`,data )).data;
     console.log(`El carro ${rescarros.CARRO_PLACA} fue modificado con éxito`);
@@ -136,62 +135,62 @@ if ( id.value.trim().length>0 )
 
 /* ---------------------- CREAR DATOS  ---------------------- */
 
-if (id.value.trim().length === 0) {
+  if (id.value.trim().length === 0) {
 
-  if(carro_placa.value.length === 0) { 
-    swal(`CORREGIR!`, `El PLACA CARRO ES OBLIGATORIA 1 IF`, `warning`);
-  }
-
-  else{
-    try{
-      const {data} = await httpAxios.get<ICarros>(`carros/${carro_placa.value}`);
-      if(carro_placa.value === data.CARRO_PLACA.toString())
-      {
-        swal({
-        title: "ERROR DE DATOS!",
-        text: "Placa ya existe, Desea reactivar el registro anterior?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then(async (willDelete) => {
-          if (willDelete) 
-          {
-            const recovery = carro_placa.value;
-            (await httpAxios.put<ICarros>(`carros/recuperar/${recovery}`)) 
-            {swal(`Se Presento un Error!`, `Error :(`, `error`)}
-            swal("RECUPERADO CON EXITO", {icon: "success",});  
-            consultaCarros();
-
-          } 
-          else 
-          {
-            swal("EL ARCHIVO SIGUE DESHABILITADO");
-          }
-        });
-      }
+    if(carro_placa.value.length === 0) { 
+      swal(`CORREGIR!`, `El PLACA CARRO ES OBLIGATORIA 1 IF`, `warning`);
     }
 
-    catch(eror){
-        try 
+    else{
+      try{
+        const {data} = await httpAxios.get<ICarros>(`carros/${carro_placa.value}`);
+        if(carro_placa.value === data.CARRO_PLACA.toString())
         {
-        const rescarros:ICarros =  await (await httpAxios.post<ICarros>(`carros`,data)).data;
-        swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`, `success`);
-        } 
-        catch (error) {
-          if (axios.isAxiosError(error))
-          {
-            console.log(`Error en axios :(`);     
-          }
-          console.log(error);
-          swal(`Se Presento un Error en AXIOS!`, `Error :(`, `error`);        
+          swal({
+          title: "ERROR DE DATOS!",
+          text: "Placa ya existe, Desea reactivar el registro anterior?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+          })
+          .then(async (willDelete) => {
+            if (willDelete) 
+            {
+              const recovery = carro_placa.value;
+              (await httpAxios.put<ICarros>(`carros/recuperar/${recovery}`)) 
+              {swal(`Se Presento un Error!`, `Error :(`, `error`)}
+              swal("RECUPERADO CON EXITO", {icon: "success",});  
+              consultaCarros();
+
+            } 
+            else 
+            {
+              swal("EL ARCHIVO SIGUE DESHABILITADO");
+            }
+          });
         }
-     };
-    
-    /* return */
+      }
+
+      catch(eror){
+          try 
+          {
+          const rescarros:ICarros =  await (await httpAxios.post<ICarros>(`carros`,data)).data;
+          swal(`Listo!`, `El carro ${rescarros.CARRO_PLACA} fue insertado con éxito`, `success`);
+          } 
+          catch (error) {
+            if (axios.isAxiosError(error))
+            {
+              console.log(`Error en axios :(`);     
+            }
+            console.log(error);
+            swal(`Se Presento un Error en AXIOS!`, `Error :(`, `error`);        
+          }
+      };
+      
+      /* return */
+    }
+  /* ||||||||||||||||||||||||||| FIN CREAR  ||||||||||||||||||||||||||| */
   }
-/* ||||||||||||||||||||||||||| FIN CREAR  ||||||||||||||||||||||||||| */
-}
 
 
 };
