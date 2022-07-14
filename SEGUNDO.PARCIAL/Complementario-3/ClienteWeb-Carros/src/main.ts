@@ -187,6 +187,7 @@ grabar.addEventListener('click', async ()=>{
   /* ---------------------- CREAR DATOS  ---------------------- */
 
   if (id.value.trim().length === 0) {
+    try{
 
     if(carro_placa.value.length === 0) { 
       swal(`CORREGIR!`, `El PLACA CARRO ES OBLIGATORIA 1 IF`, `warning`);
@@ -211,11 +212,13 @@ grabar.addEventListener('click', async ()=>{
               {swal(`Se Presento un Error!`, `Error :(`, `error`)}
               swal("RECUPERADO CON EXITO", {icon: "success",});  
 
-          } else {
+          } 
+          else {
             swal("EL ARCHIVO SIGUE DESHABILITADO");
           }
         });    
       }
+    }
 
       catch(eror){
           try 
