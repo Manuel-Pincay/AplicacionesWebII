@@ -1,0 +1,51 @@
+
+    
+<div class="container mt-3">
+
+    <div class="row">
+        <div class="col">
+            <p class="h3">
+                INGRESO DATOS
+            </p>
+            <p >NUEVOS DATOS
+                
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<div class="container ">
+    <div class="row">
+        <div class="col-sm-4">
+            <form (submit)="agregarExonerado()">
+                <div class="mb-2">
+                    <input required="true" [(ngModel)]="exonerado.id" name="id" type="text" class="form-control" placeholder="id sv">
+                </div>
+                <div class="mb-2">
+                    <input required="true" [(ngModel)]="exonerado.fecha" name="fecha" type="text" class="form-control" placeholder="fecha sv">
+                </div>
+                <div class="mb-2">
+                    <input required="true" [(ngModel)]="exonerado.idemp" name="idemp" type="text" class="form-control" placeholder="idemp sv">
+                </div>
+                <div class="mb-2">
+                    <input required="true" [(ngModel)]="exonerado.desde" name="desde" type="text" class="form-control" placeholder="desde sv">
+                </div>
+                <div class="mb-2">
+                    <input required="true" [(ngModel)]="exonerado.hasta" name="hasta" type="text" class="form-control" placeholder="hasta sv">
+                </div>
+                <div class="mb-2">
+                    <input required="true" [(ngModel)]="exonerado.beneficio" name="beneficio" type="number" class="form-control" placeholder="beneficio sv">
+                </div>
+                <div class="mb-2">
+                    <input required="true" [(ngModel)]="exonerado.estado" name="estado" type="number" class="form-control" placeholder="estado sv">
+                </div>
+                <div class="mb-2">
+                    <input type="submit" class="btn btn-danger" value="Registrar">
+                    <a routerLink="/" class="btn btn-dark ms-2">Regresar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

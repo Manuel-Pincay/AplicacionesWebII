@@ -1,0 +1,32 @@
+<div class="container mt-3">
+
+    <div class="row">
+        <div class="col">
+            <p class="h3 fw-bold text-danger">
+                Editar Estado
+            </p>
+            <p class="fst-italic">Editar estado dependiendo si es rechazado o pendiente <br> 1 PENDIETE
+                <br> 2 ACEPTADO
+                <br> 3 RECHAZADO
+                <br> 4 INFORMADO</p>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container">
+    <div class="row ">
+        <div class="col-sm-4 ">
+            <form (submit)="actualizarExonerado()">
+                <div class="mb-2 ">
+                    <input type="number" class="form-control" [(ngModel)]="exonerado.estado" name="estado" [value]="exonerado.estado">
+                </div>
+                <div class="mb-2">
+                    <input type="submit" class="btn btn-success" name="actualizar" value=Actualizar>
+                    <a routerLink="/" class="btn btn-dark ms-2">Regresar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
